@@ -35,7 +35,7 @@ style.theme_use("clam")
 # _______________ JANELA _________________ ↑
 
 # -------------------------------------- FRAME'S -------------------------------------- ↓
-frameTopo = Frame(janela, width=1043, height=50, bg=amarelo, relief='flat')
+frameTopo = Frame(janela, width=1043, height=45, bg=amarelo, relief='flat')
 frameTopo.grid(row=0, column=0)
 
 frameGrafico = Frame(janela, width=1043, height=361, bg=dark1, pady=20, relief='raised')
@@ -45,18 +45,18 @@ frameTabela = Frame(janela, width=1043, height=300, bg=dark1, relief='flat')
 frameTabela.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
 # ______________________________________ FRAME'S ______________________________________ ↑
 
+
 # --------------------------- POSICIONANDO LOGO NO FRAMETOPO -------------------------- ↓
 imgLogo = Image.open('../assets/logo_cs_peq.png')
-imgLogo = imgLogo.resize((45, 45))
+imgLogo = imgLogo.resize((40, 40))
 imgLogo = ImageTk.PhotoImage(imgLogo)
 
 labelLogo = Label(frameTopo, image=imgLogo, text='Ebony SyS', width=900, compound=LEFT,
                   padx=5, relief=RAISED, anchor=CENTER, font='Verdana 14 bold italic',
                   bg=dark1, fg=branco, borderwidth=0)
 labelLogo.place(x=0, y=0)
-
-
 # __________________________ POSICIONANDO LOGO NO FRAMETOPO __________________________ ↑
+
 
 # __________________________ BARRA DE PORCENTAGEM __________________________ ↓
 
@@ -82,7 +82,52 @@ def porcentagem():
 
 
 # __________________________ BARRA DE PORCENTAGEM __________________________ ↑
+# __________________________ GRÁFICO DE BARRAS __________________________ ↓
+
+def grafico_bar():
+    lista_categoria = ['Renda', 'Despesas', 'Saldo']
+    lista_valores = [1320, 500, 820]
+
+    # Criando imagem
+    figura = plt.Figure(figsize=(4, 3.75), dpi=60, facecolor=dark1)
+    ax = figura.add_subplot(111)
+
+    # Inserindo valores para os eixos
+    bars = ax.bar(lista_categoria, lista_valores, color=cores, width=0.9)
+
+    # Posicionando valores sobre as barras 
+    for bar in bars:
+        yval = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2, yval + 3,
+                "R${:,.0f}".format(yval),
+                ha='center', va='bottom', color='white', fontsize=13, fontstyle='italic')
+
+    # Posicionando as categorias no eixo x
+    ax.set_xticklabels(lista_categoria, fontsize=16, color='white')
+
+    # Alterando cores e estilizando gráfico
+    ax.patch.set_facecolor(dark1)  # Definindo o fundo do gráfico como preto
+    ax.spines['bottom'].set_color(branco)  # Colorindo a linha abaixo das barras
+    ax.spines['bottom'].set_linewidth(1)
+    ax.spines['right'].set_linewidth(0)
+    ax.spines['top'].set_linewidth(0)
+    ax.spines['left'].set_color(branco)
+    ax.spines['left'].set_linewidth(1)
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.tick_params(bottom=False, left=False)
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(False, color=vermelho)  # linhas da grade
+    ax.xaxis.grid(False)
+
+    ax.tick_params(axis='both', colors=branco)
+
+    canva = FigureCanvasTkAgg(figura, frameGrafico)
+    canva.get_tk_widget().place(x=10, y=70)
 
 
 porcentagem()
+grafico_bar()
 janela.mainloop()
