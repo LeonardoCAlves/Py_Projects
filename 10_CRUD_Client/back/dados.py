@@ -14,7 +14,6 @@ def criando_arquivo_base():
     df = pd.DataFrame(columns=colunas)
     df.to_excel('dados.xlsx', index=False, sheet_name='Base_Clientes')
 
-
 # Lendo base de dados
 def titulos():
     workbook = pd.read_excel('dados.xlsx', sheet_name='Base_Clientes')
@@ -22,7 +21,6 @@ def titulos():
         workbook.columns
     )
     return titles
-
 
 # Inserindo registros
 def inserindo_registros(cliente):
