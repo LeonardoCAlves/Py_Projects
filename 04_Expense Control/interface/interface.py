@@ -43,6 +43,9 @@ frameGrafico.grid(row=1, column=0, pady=1, padx=10, sticky=NSEW)
 
 frameTabela = Frame(janela, width=1043, height=300, bg=dark1, relief='flat')
 frameTabela.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
+
+frameGraficoPie = Frame(frameGrafico, width=580, height=250, bg=dark1)
+frameGraficoPie.place(x=415, y=20)
 # ______________________________________ FRAME'S ______________________________________ ↑
 
 
@@ -119,7 +122,7 @@ def grafico_bar():
     ax.spines['left'].set_visible(False)
     ax.tick_params(bottom=False, left=False)
     ax.set_axisbelow(True)
-    ax.yaxis.grid(False, color=vermelho)  # linhas da grade
+    ax.yaxis.grid(False, color=cinza)  # linhas da grade
     ax.xaxis.grid(False)
 
     ax.tick_params(axis='both', colors=branco)
@@ -131,14 +134,66 @@ def grafico_bar():
 def resumo():
     valor = [500,600,700]
 
-    linha1 = Label(frameGrafico, text='', width=215, height=1, anchor=NW, font=('Ubuntu 1'), bg=branco)
-    linha1.place(x=309, y=52)
-    sumario1 = Label(frameGrafico, text='Renda Total', anchor=NW, font=('Ubuntu 12'), bg=dark1, fg=branco)
-    sumario1.place(x=309, y=35)
+    linha = Label(frameGrafico, text='', width=215, height=1, anchor=NW, font=('Ubuntu 1'), bg=branco)
+    linha.place(x=309, y=47)
+    sumario = Label(frameGrafico, text='Renda Total'.center(44), anchor=NW, font=('Ubuntu 12'), bg=dark1, fg=branco)
+    sumario.place(x=309, y=50)
+    sumario = Label(frameGrafico, text=f'R$ {valor[0]:,.2f}', anchor=NW, font=('Ubuntu 15'), bg=dark1, fg=branco)
+    sumario.place(x=309, y=80)
+
+    linha = Label(frameGrafico, text='', width=215, height=1, anchor=NW, font=('Ubuntu 1'), bg=branco)
+    linha.place(x=309, y=137)
+    sumario = Label(frameGrafico, text='Despesa Total'.center(44), anchor=NW, font=('Ubuntu 12'), bg=dark1, fg=branco)
+    sumario.place(x=309, y=140)
+    sumario = Label(frameGrafico, text=f'R$ {valor[0]:,.2f}', anchor=NW, font=('Ubuntu 15'), bg=dark1, fg=branco)
+    sumario.place(x=309, y=170)
+
+    linha = Label(frameGrafico, text='', width=215, height=1, anchor=NW, font=('Ubuntu 1'), bg=branco)
+    linha.place(x=309, y=227)
+    sumario = Label(frameGrafico, text='Saldo Total'.center(45), anchor=NW, font=('Ubuntu 12'), bg=dark1, fg=branco)
+    sumario.place(x=309, y=230)
+    sumario = Label(frameGrafico, text=f'R$ {valor[0]:,.2f}', anchor=NW, font=('Ubuntu 15'), bg=dark1, fg=branco)
+    sumario.place(x=309, y=260)
+
+
+def grafico_pie():
+    # criando a figura
+    figura = plt.Figure(figsize=(5,3), dpi=90, facecolor=dark1)
+    ax = figura.add_subplot(111)
+
+    lista_valores = [345, 218, 539]
+    lista_categorias = ['Renda', 'Despesa', 'Saldo']
+
+    explode = []
+    for i in lista_categorias:
+        explode.append(0.05)
+
+    cor_fonte = {'color': branco}
+
+    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', colors=cores,
+           shadow=True, startangle=90, textprops=cor_fonte, labeldistance=1.)
+
+    # Configurando a legenda
+    legenda = ax.legend(lista_categorias, loc='center right', bbox_to_anchor=(1.55, 0.50), facecolor=dark1)
+
+    # Configurando a cor de fundo da legenda
+    legenda.set_frame_on(True)
+    legenda.get_frame().set_facecolor(dark1)
+
+    # Configurando a cor da fonte na legenda
+    for texto in legenda.get_texts():
+        texto.set_color(branco)
+
+    canva_categoria = FigureCanvasTkAgg(figura, frameGraficoPie)
+    canva_categoria.get_tk_widget().grid(row=0, column=0)
+
+
+
 
 
 
 porcentagem()
 grafico_bar()
 resumo()
+grafico_pie()
 janela.mainloop()
