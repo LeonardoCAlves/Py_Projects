@@ -12,8 +12,9 @@ def criando_arquivo_base():
                "Profissão", "Sexo", "Produto", "dt_cadastro"]
     
     df = pd.DataFrame(columns=colunas)
-    df.to_excel('dados.xlsx', index=False, sheet_name='Base_Clientes')
+    df.to_excel('./base/dados.xlsx', index=False, sheet_name='Base_Clientes')
 
+criando_arquivo_base()
 # Lendo base de dados
 def titulos():
     workbook = pd.read_excel('dados.xlsx', sheet_name='Base_Clientes')
@@ -26,7 +27,7 @@ def titulos():
 def inserindo_registros(cliente):
 
     # carregando pasta de trabalho
-    workbook = openpyxl.load_workbook('dados.xlsx')
+    workbook = openpyxl.load_workbook('./base/dados.xlsx')
 
     # selecionando a planilha Base_Clientes
     worksheet = workbook['Base_Clientes']
@@ -70,8 +71,7 @@ def inserindo_registros(cliente):
     # salvando a pasta de trabalho atualizada
     workbook.save('dados.xlsx')
 
-
 registro = ["Léo", "01/11/1993", "12312312312", "11979797979", "l@email.com", "Ruas das Coves, 30, SP",
                "Programador", "Masculino", "Camisa do Mengão", f"{date.today().strftime('%d/%m/%Y')}"]
 
-inserindo_registros(registro)
+# inserindo_registros(registro)
