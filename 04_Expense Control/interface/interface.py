@@ -82,7 +82,7 @@ def porcentagem():
 
 
 # __________________________ BARRA DE PORCENTAGEM __________________________ ↑
-# __________________________ GRÁFICO DE BARRAS __________________________ ↓
+# __________________________ GRÁFICOS __________________________ ↓
 
 def grafico_bar():
     lista_categoria = ['Renda', 'Despesas', 'Saldo']
@@ -128,6 +128,17 @@ def grafico_bar():
     canva.get_tk_widget().place(x=10, y=70)
 
 
+def resumo():
+    valor = [500,600,700]
+
+    linha1 = Label(frameGrafico, text='', width=215, height=1, anchor=NW, font=('Ubuntu 1'), bg=branco)
+    linha1.place(x=309, y=52)
+    sumario1 = Label(frameGrafico, text='Renda Total', anchor=NW, font=('Ubuntu 12'), bg=dark1, fg=branco)
+    sumario1.place(x=309, y=35)
+
+
+
 porcentagem()
 grafico_bar()
+resumo()
 janela.mainloop()
