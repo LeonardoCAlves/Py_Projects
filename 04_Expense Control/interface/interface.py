@@ -4,7 +4,11 @@ from tkinter.ttk import Progressbar
 from PIL import Image, ImageTk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from ttkthemes import ThemedStyle
+from tkcalendar import Calendar, DateEntry
+from datetime import date
 import matplotlib.pyplot as plt
+
 
 # ---------- ROOT ------------ ↓
 preto = '#000'
@@ -41,11 +45,22 @@ frameTopo.grid(row=0, column=0)
 frameGrafico = Frame(janela, width=1043, height=361, bg=dark1, pady=20, relief='raised')
 frameGrafico.grid(row=1, column=0, pady=1, padx=10, sticky=NSEW)
 
-frameTabela = Frame(janela, width=1043, height=300, bg=dark1, relief='flat')
-frameTabela.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
+frameInferior = Frame(janela, width=1043, height=300, bg=dark1, relief='flat')
+frameInferior.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW)
 
 frameGraficoPie = Frame(frameGrafico, width=580, height=250, bg=dark1)
 frameGraficoPie.place(x=415, y=20)
+
+frameRenda = Frame(frameInferior, width=300, height=250, bg=dark1)
+frameRenda.grid(row=0, column=0)
+
+frameOperacoes = Frame(frameInferior, width=220, height=250, bg=dark1)
+frameOperacoes.grid(row=0, column=1, padx=5)
+
+frameConfiguracao = Frame(frameInferior, width=220, height=250, bg=dark1)
+frameConfiguracao.grid(row=0, column=2, padx=5)
+
+
 # ______________________________________ FRAME'S ______________________________________ ↑
 
 
@@ -61,9 +76,8 @@ labelLogo.place(x=0, y=0)
 # __________________________ POSICIONANDO LOGO NO FRAMETOPO __________________________ ↑
 
 
-# __________________________ BARRA DE PORCENTAGEM __________________________ ↓
 
-def porcentagem():
+def barra_porcentagem():
     labelPorcentagem = Label(frameGrafico, text='Porcentagem de gastos', height=1, anchor=NW,
                              font=('Verdana 12'), bg=dark1, fg=cinza)
     labelPorcentagem.place(x=40, y=5)
@@ -83,9 +97,6 @@ def porcentagem():
                        bg=dark1, fg=cinza)
     labelValor.place(x=210, y=35)
 
-
-# __________________________ BARRA DE PORCENTAGEM __________________________ ↑
-# __________________________ GRÁFICOS __________________________ ↓
 
 def grafico_bar():
     lista_categoria = ['Renda', 'Despesas', 'Saldo']
@@ -188,12 +199,59 @@ def grafico_pie():
     canva_categoria.get_tk_widget().grid(row=0, column=0)
 
 
+# Tabela de renda mensal
+app_tabela = Label(frameGrafico, text="Tabela Receitas Vs Despesas", anchor=NW,
+                   font=("Ubuntu 12"), bg=dark1, fg=branco)
+app_tabela.place(x=60, y=312)
+
+def tabela():
+    cabecalho = ['ID', 'Categoria', 'Data', 'Valor']
+    lista_itens = [[1,'Despesa','14/02/2024', 'R$550,00'],[1,2,3,4],[1,2,3,4],[1,2,3,4]]
+
+    global tree
+
+    style = ThemedStyle()
+    style.set_theme("black")
+    style.configure("Treeview",
+                    background=dark1,
+                    foreground=branco,
+                    fieldbackground=dark1,
+                    font=("Ubuntu", 9),
+                    rowheight=25)  
+
+    style.configure("Treeview.Heading", background=dark2, foreground=branco, borderwidth=0, font=("Ubuntu", 13))
+
+    tree = ttk.Treeview(frameRenda, style="Treeview", selectmode='extended', columns=cabecalho, show='headings')
+    scrollbar_vert = ttk.Scrollbar(frameRenda, orient='vertical', command=tree.yview, style="Vertical.TScrollbar")
+    scrollbar_hori = ttk.Scrollbar(frameRenda, orient='horizontal', command=tree.xview, style="Horizontal.TScrollbar")
+    tree.configure(yscrollcommand=scrollbar_vert.set, xscrollcommand=scrollbar_hori.set)
+
+    tree.grid(column=0, row=0, sticky='nsew')
+    scrollbar_vert.grid(column=1, row=0, sticky='ns')
+    scrollbar_hori.grid(column=0, row=1, sticky='ew')
+
+    hd = ['center','center','center','center']
+    h = [30, 100, 100, 100]
+    n = 0
+
+    for col in cabecalho:
+        tree.heading(col, text=col.title(), anchor=CENTER)
+        tree.column(col, width=h[n], anchor=hd[n])
+        n += 1
+
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
 
 
 
 
-porcentagem()
+
+
+
+
+barra_porcentagem()
 grafico_bar()
 resumo()
 grafico_pie()
+tabela()
 janela.mainloop()
