@@ -59,8 +59,6 @@ frameOperacoes.grid(row=0, column=1, padx=5)
 
 frameConfiguracao = Frame(frameInferior, width=220, height=250, bg=dark1)
 frameConfiguracao.grid(row=0, column=2, padx=5)
-
-
 # ______________________________________ FRAME'S ______________________________________ ↑
 
 
@@ -74,7 +72,6 @@ labelLogo = Label(frameTopo, image=imgLogo, text='Ebony SyS', width=900, compoun
                   bg=dark1, fg=branco, borderwidth=0)
 labelLogo.place(x=0, y=0)
 # __________________________ POSICIONANDO LOGO NO FRAMETOPO __________________________ ↑
-
 
 
 def barra_porcentagem():
@@ -96,7 +93,6 @@ def barra_porcentagem():
     labelValor = Label(frameGrafico, text=f'{valor:.1f}%', anchor=NW, font=('Verdana 12'),
                        bg=dark1, fg=cinza)
     labelValor.place(x=210, y=35)
-
 
 def grafico_bar():
     lista_categoria = ['Renda', 'Despesas', 'Saldo']
@@ -141,7 +137,6 @@ def grafico_bar():
     canva = FigureCanvasTkAgg(figura, frameGrafico)
     canva.get_tk_widget().place(x=10, y=70)
 
-
 def resumo():
     valor = [500,600,700]
 
@@ -165,7 +160,6 @@ def resumo():
     sumario.place(x=309, y=230)
     sumario = Label(frameGrafico, text=f'R$ {valor[0]:,.2f}', anchor=NW, font=('Ubuntu 15'), bg=dark1, fg=branco)
     sumario.place(x=309, y=260)
-
 
 def grafico_pie():
     # criando a figura
@@ -198,7 +192,6 @@ def grafico_pie():
     canva_categoria = FigureCanvasTkAgg(figura, frameGraficoPie)
     canva_categoria.get_tk_widget().grid(row=0, column=0)
 
-
 # Tabela de renda mensal
 app_tabela = Label(frameGrafico, text="Tabela Receitas Vs Despesas", anchor=NW,
                    font=("Ubuntu 12"), bg=dark1, fg=branco)
@@ -206,25 +199,55 @@ app_tabela.place(x=60, y=312)
 
 def tabela():
     cabecalho = ['ID', 'Categoria', 'Data', 'Valor']
-    lista_itens = [[1,'Despesa','14/02/2024', 'R$550,00'],[1,2,3,4],[1,2,3,4],[1,2,3,4]]
+    lista_itens = [
+                    [1,'Despesa','14/02/2024', 'R$4.550,00'],
+                    [2,'Despesa','10/02/2024', 'R$1.200,00'],
+                    [3,'Despesa','08/02/2024', 'R$3.780,00'],
+                    [4,'Despesa','02/02/2024', 'R$3.230,00']
+                  ]
 
     global tree
 
     style = ThemedStyle()
     style.set_theme("black")
-    style.configure("Treeview",
-                    background=dark1,
-                    foreground=branco,
-                    fieldbackground=dark1,
-                    font=("Ubuntu", 9),
-                    rowheight=25)  
+    style.configure(
+        "Treeview",
+        background=dark1,
+        foreground=branco,
+        fieldbackground=dark1,
+        font=("Ubuntu", 9),
+        rowheight=25)  
 
-    style.configure("Treeview.Heading", background=dark2, foreground=branco, borderwidth=0, font=("Ubuntu", 13))
-
-    tree = ttk.Treeview(frameRenda, style="Treeview", selectmode='extended', columns=cabecalho, show='headings')
-    scrollbar_vert = ttk.Scrollbar(frameRenda, orient='vertical', command=tree.yview, style="Vertical.TScrollbar")
-    scrollbar_hori = ttk.Scrollbar(frameRenda, orient='horizontal', command=tree.xview, style="Horizontal.TScrollbar")
-    tree.configure(yscrollcommand=scrollbar_vert.set, xscrollcommand=scrollbar_hori.set)
+    style.configure(
+        "Treeview.Heading", 
+        background=dark2, 
+        foreground=branco, 
+        borderwidth=0, 
+        font=("Ubuntu", 13))
+    
+    tree = ttk.Treeview(
+        frameRenda, 
+        style="Treeview", 
+        selectmode='extended', 
+        columns=cabecalho, 
+        show='headings')
+    
+    scrollbar_vert = ttk.Scrollbar(
+        frameRenda, 
+        orient='vertical', 
+        command=tree.yview, 
+        style="Vertical.TScrollbar")
+    
+    scrollbar_hori = ttk.Scrollbar(
+        frameRenda, 
+        orient='horizontal', 
+        command=tree.xview, 
+        style="Horizontal.TScrollbar")
+    
+    tree.configure(
+        yscrollcommand=scrollbar_vert.set, 
+        xscrollcommand=scrollbar_hori.set
+    )
 
     tree.grid(column=0, row=0, sticky='nsew')
     scrollbar_vert.grid(column=1, row=0, sticky='ns')
@@ -243,9 +266,45 @@ def tabela():
         tree.insert('', 'end', values=item)
 
 
+label_descricao = Label(frameGrafico, text='Novas despesas', height=1,
+                        anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
+label_descricao.place(x=390, y=312)
+
+# Linha de categorias 
+label_categoria = Label(frameOperacoes, text='Categorias', height=1,
+                        anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
+label_categoria.place(x=10, y=10)
+
+# Carregando as categorias
+lista_categorias = ['Viagem', 'Comida']
+categorias = []
+
+for c in lista_categorias : categorias.append(c[1])
+
+combo_categoriaDespesa = ttk.Combobox(frameOperacoes, width=10, font=('Ivy 10'))
+combo_categoriaDespesa['values'] = (categorias)
+combo_categoriaDespesa.place(x=110, y=11)
 
 
+# Linha da data
+label_despesa = Label(frameOperacoes, text='Data', height=1,
+                        anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
+label_despesa.place(x=10, y=50)
 
+cal_despesa = DateEntry(frameOperacoes, width=12, background='darkblue',
+                        foreground='white', borderwidth=2, year=2024, justify='center')
+cal_despesa.place(x=110, y=51)
+
+
+# Linha do valor
+label_valor = Label(frameOperacoes, text='Valor R$', height=1,
+                        anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
+label_valor.place(x=10, y=90)
+cal_valor = Entry(frameOperacoes, width=14, justify='left', relief='solid')
+cal_valor.place(x=110, y=91)
+
+
+# Botão adicionar despesa
 
 
 
