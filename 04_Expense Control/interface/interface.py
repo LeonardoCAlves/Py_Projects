@@ -54,11 +54,11 @@ frameGraficoPie.place(x=415, y=20)
 frameRenda = Frame(frameInferior, width=300, height=250, bg=dark1)
 frameRenda.grid(row=0, column=0)
 
-frameOperacoes = Frame(frameInferior, width=220, height=250, bg=dark1)
-frameOperacoes.grid(row=0, column=1, padx=5)
+frameAddRemDespesas = Frame(frameInferior, width=220, height=250, bg=dark1)
+frameAddRemDespesas.grid(row=0, column=1, padx=5)
 
-frameConfiguracao = Frame(frameInferior, width=220, height=250, bg=dark1)
-frameConfiguracao.grid(row=0, column=2, padx=5)
+frameAddRemReceitas = Frame(frameInferior, width=220, height=250, bg=dark1)
+frameAddRemReceitas.grid(row=0, column=2, padx=5)
 # ______________________________________ FRAME'S ______________________________________ ↑
 
 
@@ -271,7 +271,7 @@ label_descricao = Label(frameGrafico, text='Novas despesas', height=1,
 label_descricao.place(x=390, y=312)
 
 # Linha de categorias 
-label_categoria = Label(frameOperacoes, text='Categorias', height=1,
+label_categoria = Label(frameAddRemDespesas, text='Categorias', height=1,
                         anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
 label_categoria.place(x=10, y=10)
 
@@ -281,30 +281,52 @@ categorias = []
 
 for c in lista_categorias : categorias.append(c[1])
 
-combo_categoriaDespesa = ttk.Combobox(frameOperacoes, width=10, font=('Ivy 10'))
+combo_categoriaDespesa = ttk.Combobox(frameAddRemDespesas, width=10, font=('Ivy 10'))
 combo_categoriaDespesa['values'] = (categorias)
 combo_categoriaDespesa.place(x=110, y=11)
 
 
 # Linha da data
-label_despesa = Label(frameOperacoes, text='Data', height=1,
+label_despesa = Label(frameAddRemDespesas, text='Data', height=1,
                         anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
 label_despesa.place(x=10, y=50)
 
-cal_despesa = DateEntry(frameOperacoes, width=12, background='darkblue',
+cal_despesa = DateEntry(frameAddRemDespesas, width=12, background='darkblue',
                         foreground='white', borderwidth=2, year=2024, justify='center')
 cal_despesa.place(x=110, y=51)
 
 
 # Linha do valor
-label_valor = Label(frameOperacoes, text='Valor R$', height=1,
+label_valor = Label(frameAddRemDespesas, text='Valor R$', height=1,
                         anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
 label_valor.place(x=10, y=90)
-cal_valor = Entry(frameOperacoes, width=14, justify='left', relief='solid')
+cal_valor = Entry(frameAddRemDespesas, width=15, justify='left', relief='solid')
 cal_valor.place(x=110, y=91)
 
 
 # Botão adicionar despesa
+btn_adc_despesa = Button(frameAddRemDespesas, text='Adicionar', bg=verde, fg=branco, width=12,
+                         compound=LEFT, font=('Ivy 7 bold'), overrelief=RIDGE)
+btn_adc_despesa.place(x=10, y=141)
+
+
+# Botão remover despesa
+btn_del_despesa = Button(frameAddRemDespesas, text='Remover', bg=vermelho, fg=branco, width=12, 
+                         compound=LEFT, font=('Ivy 7 bold'), overrelief=RIDGE)
+btn_del_despesa.place(x=125, y=141)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
