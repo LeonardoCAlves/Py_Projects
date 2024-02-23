@@ -1,7 +1,6 @@
 import openpyxl
 from openpyxl.utils import column_index_from_string
 from openpyxl.styles import Alignment
-from openpyxl import load_workbook
 from datetime import date
 import pandas as pd
 
@@ -14,7 +13,6 @@ def criando_arquivo_base():
     df = pd.DataFrame(columns=colunas)
     df.to_excel('./base/dados.xlsx', index=False, sheet_name='Base_Clientes')
 
-criando_arquivo_base()
 # Lendo base de dados
 def titulos():
     workbook = pd.read_excel('dados.xlsx', sheet_name='Base_Clientes')
@@ -69,7 +67,9 @@ def inserindo_registros(cliente):
     worksheet.cell(row=linha, column=column_index_from_string('J'), value = dados_cliente[9])
 
     # salvando a pasta de trabalho atualizada
-    workbook.save('dados.xlsx')
+    workbook.save('./base/dados.xlsx')
+
+
 
 registro = ["Léo", "01/11/1993", "12312312312", "11979797979", "l@email.com", "Ruas das Coves, 30, SP",
                "Programador", "Masculino", "Camisa do Mengão", f"{date.today().strftime('%d/%m/%Y')}"]
