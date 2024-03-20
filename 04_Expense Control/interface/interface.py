@@ -10,6 +10,7 @@ from datetime import date
 import matplotlib.pyplot as plt
 
 
+
 # ---------- ROOT ------------ ↓
 preto = '#000'
 branco = '#fff'
@@ -286,7 +287,7 @@ combo_categoriaDespesa['values'] = (categorias)
 combo_categoriaDespesa.place(x=110, y=11)
 
 
-# Linha da data
+# Linha da data despesa
 label_despesa = Label(frameAddRemDespesas, text='Data', height=1,
                         anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
 label_despesa.place(x=10, y=50)
@@ -313,12 +314,22 @@ btn_adc_despesa.place(x=10, y=141)
 # Botão remover despesa
 btn_del_despesa = Button(frameAddRemDespesas, text='Remover', bg=vermelho, fg=branco, width=12, 
                          compound=LEFT, font=('Ivy 7 bold'), overrelief=RIDGE)
-btn_del_despesa.place(x=125, y=141)
+btn_del_despesa.place(x=124, y=141)
+
+# label Novas Receitas
+label_descricao = Label(frameGrafico, text='Novas receitas', height=1,
+                        anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
+label_descricao.place(x=690, y=312)
 
 
+# Linha da data receita
+label_despesa = Label(frameAddRemReceitas, text='Data', height=1,
+                        anchor=NW, bg=dark1, font=('Ubuntu 12'), fg=branco)
+label_despesa.place(x=20, y=10)
 
-
-
+cal_despesa = DateEntry(frameAddRemReceitas, width=12, background='darkblue',
+                        foreground='white', borderwidth=2, year=2024, justify='center')
+cal_despesa.place(x=70, y=11)
 
 
 
