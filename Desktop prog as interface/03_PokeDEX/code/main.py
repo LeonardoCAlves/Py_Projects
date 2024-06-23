@@ -129,7 +129,4 @@ imagemBanner.place(x=375, y=285)
 
 window.mainloop()
 
-'''
-Desenvolvido por Leonardo Alves
-Contato: leon4rdoalvess@gmail.com
-'''
+
