@@ -130,7 +130,3 @@ while True:
     except NameError as erro:
         print('\nAlgo errado não está certo!\n')
         
-'''
-Desenvolvido por Leonardo Alves
-Contato: leon4rdoalvess@gmail.com
-'''
