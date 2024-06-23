@@ -46,7 +46,7 @@ frameEsqueda2.grid(row=1, column=0, sticky=NSEW)
 # -------------------------------- CRIANDO FRAMES -------------------------------- ↑
 # --------------------------- POSICIONANDO LOGO NO FRAMETOPO -------------------------- ↓
 
-imgLogo = Image.open('../assets/logo_cs_peq.png')
+imgLogo = Image.open('06_ToDo/assets/logo_cs_peq.png')
 imgLogo = imgLogo.resize((30, 30))
 imgLogo = ImageTk.PhotoImage(imgLogo)
 
