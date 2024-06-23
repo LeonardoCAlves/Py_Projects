@@ -193,6 +193,7 @@ def grafico_pie():
     canva_categoria = FigureCanvasTkAgg(figura, frameGraficoPie)
     canva_categoria.get_tk_widget().grid(row=0, column=0)
 
+
 # Tabela de renda mensal
 app_tabela = Label(frameGrafico, text="Tabela Receitas Vs Despesas", anchor=NW,
                    font=("Ubuntu 12"), bg=dark1, fg=branco)

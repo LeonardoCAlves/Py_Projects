@@ -40,7 +40,7 @@ username_feedback = custom.CTkLabel(master=frame_texto, text='Este campo é obri
 
 
 # Password
-password = custom.CTkEntry(master=frame_texto, placeholder_text='Senha',
+password = custom.CTkEntry(master=frame_texto, placeholder_text='Senha', show='👽',
                            width=300, font=('Ubuntu', 14)).place(x=25, y=180)
 password_feedback = custom.CTkLabel(master=frame_texto, text='Este campo é obrigatório ↑',
                                     text_color='green', font=('Ubuntu', 10)).place(x=25, y=208)
@@ -50,7 +50,7 @@ password_feedback = custom.CTkLabel(master=frame_texto, text='Este campo é obri
 checkbox = custom.CTkCheckBox(master=frame_texto, text="Continuar conectado...",
                               checkbox_width=12, checkbox_height=12, 
                               border_width=2, border_color='#00ff00',
-                              hover_color='#00ffff').place(x=25, y=235)
+                              hover_color='#00ffff').place(x=25, y=240)
 
 
 # enter button
